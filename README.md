@@ -28,7 +28,7 @@ https://zhuanlan.zhihu.com/p/328674159
 
 目前已完成：
 
-- [x] torch.autograd：梯度计算与计算图机制
+- [x] [torch.autograd：梯度计算与计算图机制](pytorch源码解析/BatchNorm.md)
 - [x] BatchNorm & SyncBatchNorm：BN 与多卡同步 BN
 - [x] torch.utils.data：DataLoader 与数据处理流程
 - [x] nn.Module：模块系统、Hook、state_dict、参数管理
