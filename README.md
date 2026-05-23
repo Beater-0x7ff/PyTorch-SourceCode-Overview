@@ -41,6 +41,3 @@ https://zhuanlan.zhihu.com/p/328674159
 - [ ] cpp_extension C++/CUDA 算子实现和调用
 
 
-## Main Topics
-
-详见：[pytorch.md](./pytorch.md)
