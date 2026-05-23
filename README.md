@@ -26,9 +26,20 @@ https://zhuanlan.zhihu.com/p/328674159
 
 希望大家能够互相学习、共同进步。
 
-## Contents
+目前已完成：
 
-- [PyTorch Notes](./pytorch.md)
+- [x] torch.autograd：梯度计算与计算图机制
+- [x] BatchNorm & SyncBatchNorm：BN 与多卡同步 BN
+- [x] torch.utils.data：DataLoader 与数据处理流程
+- [x] nn.Module：模块系统、Hook、state_dict、参数管理
+
+计划更新：
+
+- [ ] DistributedDataParallel (DDP) 模型并行和分布式训练
+- [ ] torch.optim 优化算法接口
+- [ ] torch.cuda.amp 自动混合精度
+- [ ] cpp_extension C++/CUDA 算子实现和调用
+
 
 ## Main Topics
 
