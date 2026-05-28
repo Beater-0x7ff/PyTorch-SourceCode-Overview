@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="1120" viewBox="0 0 980 1120">
+  <defs>
+    <style>
+      .title { font-family: 'Times New Roman', serif; font-size: 32px; font-weight: bold; }
+      .text { font-family: 'Times New Roman', serif; font-size: 25px; }
+      .bold { font-family: 'Times New Roman', serif; font-size: 25px; font-weight: bold; }
+      .italic { font-family: 'Times New Roman', serif; font-size: 25px; font-style: italic; }
+      .small { font-family: 'Times New Roman', serif; font-size: 23px; }
+      .line { stroke: #111; stroke-width: 3; }
+      .thin { stroke: #111; stroke-width: 1.7; }
+      .indent { stroke: #444; stroke-width: 1.5; fill: none; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+
+  <line x1="20" y1="18" x2="940" y2="18" class="line"/>
+  <text x="40" y="58" class="title">Algorithm 1: DistributedDataParallel</text>
+  <line x1="20" y1="78" x2="940" y2="78" class="line"/>
+
+  <text x="55" y="118" class="bold">Input:</text>
+  <text x="145" y="118" class="text">Process rank</text>
+  <text x="290" y="118" class="italic">r</text>
+  <text x="305" y="118" class="text">, bucket size cap</text>
+  <text x="500" y="118" class="italic">c</text>
+  <text x="515" y="118" class="text">, local model</text>
+  <text x="660" y="118" class="italic">net</text>
+
+  <!-- line numbers -->
+  <g class="small" text-anchor="end">
+    <text x="30" y="170">1</text><text x="30" y="205">2</text><text x="30" y="240">3</text>
+    <text x="30" y="300">4</text><text x="30" y="365">5</text><text x="30" y="400">6</text>
+    <text x="30" y="435">7</text><text x="30" y="505">8</text><text x="30" y="540">9</text>
+    <text x="30" y="575">10</text><text x="30" y="640">11</text><text x="30" y="710">12</text>
+    <text x="30" y="745">13</text><text x="30" y="780">14</text><text x="30" y="815">15</text>
+    <text x="30" y="850">16</text><text x="30" y="885">17</text><text x="30" y="920">18</text>
+    <text x="30" y="960">19</text><text x="30" y="995">20</text><text x="30" y="1030">21</text>
+  </g>
+
+  <!-- Constructor -->
+  <text x="50" y="170" class="bold">Function</text>
+  <text x="170" y="170" class="bold">constructor</text>
+  <text x="315" y="170" class="italic">net</text>
+  <text x="360" y="170" class="text">:</text>
+  <line x1="70" y1="184" x2="70" y2="455" class="indent"/>
+
+  <text x="92" y="205" class="bold">if</text>
+  <text x="125" y="205" class="italic">r</text>
+  <text x="142" y="205" class="text">=0</text>
+  <text x="185" y="205" class="bold">then</text>
+  <line x1="115" y1="218" x2="115" y2="258" class="indent"/>
+  <line x1="115" y1="258" x2="135" y2="258" class="indent"/>
+  <text x="145" y="240" class="text">broadcast</text>
+  <text x="260" y="240" class="italic">net</text>
+  <text x="305" y="240" class="text">states to other processes</text>
+
+  <text x="92" y="300" class="text">init buckets, allocate parameters to buckets in the</text>
+  <text x="92" y="333" class="text">reverse order of</text>
+  <text x="265" y="333" class="italic">net</text>
+  <text x="305" y="333" class="text">.parameters()</text>
+
+  <text x="92" y="365" class="bold">for</text>
+  <text x="135" y="365" class="italic">p</text>
+  <text x="160" y="365" class="bold">in</text>
+  <text x="195" y="365" class="italic">net</text>
+  <text x="235" y="365" class="text">.parameters()</text>
+  <text x="390" y="365" class="bold">do</text>
+  <line x1="115" y1="378" x2="115" y2="455" class="indent"/>
+  <line x1="115" y1="455" x2="135" y2="455" class="indent"/>
+  <text x="145" y="400" class="text">acc ←</text>
+  <text x="215" y="400" class="italic">p</text>
+  <text x="235" y="400" class="text">.grad_accumulator</text>
+  <text x="145" y="435" class="text">acc → add_post_hook(autograd_hook)</text>
+
+  <!-- Forward -->
+  <text x="50" y="505" class="bold">Function</text>
+  <text x="170" y="505" class="bold">forward</text>
+  <text x="270" y="505" class="italic">inp</text>
+  <text x="315" y="505" class="text">:</text>
+  <line x1="70" y1="518" x2="70" y2="655" class="indent"/>
+  <text x="92" y="540" class="text">out =</text>
+  <text x="160" y="540" class="italic">net</text>
+  <text x="205" y="540" class="text">(inp)</text>
+  <text x="92" y="575" class="text">traverse autograd graph from out and mark unused</text>
+  <text x="92" y="608" class="text">parameters as ready</text>
+  <text x="92" y="640" class="bold">return</text>
+  <text x="175" y="640" class="text">out</text>
+
+  <!-- Autograd hook -->
+  <text x="50" y="710" class="bold">Function</text>
+  <text x="170" y="710" class="bold">autograd_hook</text>
+  <text x="355" y="710" class="italic">param_index</text>
+  <text x="500" y="710" class="text">:</text>
+  <line x1="70" y1="723" x2="70" y2="1060" class="indent"/>
+
+  <text x="92" y="745" class="text">get bucket</text>
+  <text x="215" y="745" class="italic">b</text><text x="228" y="752" class="small">i</text>
+  <text x="245" y="745" class="text">and bucket</text>
+  <text x="375" y="745" class="italic">offset</text>
+  <text x="450" y="745" class="text">using param_index</text>
+
+  <text x="92" y="780" class="text">get parameter</text>
+  <text x="255" y="780" class="italic">var</text>
+  <text x="305" y="780" class="text">using</text>
+  <text x="370" y="780" class="italic">param_index</text>
+
+  <text x="92" y="815" class="text">view ←</text>
+  <text x="180" y="815" class="italic">b</text><text x="193" y="822" class="small">i</text>
+  <text x="210" y="815" class="text">.narrow(</text>
+  <text x="310" y="815" class="italic">offset</text>
+  <text x="380" y="815" class="text">,</text>
+  <text x="400" y="815" class="italic">var</text>
+  <text x="440" y="815" class="text">.size())</text>
+
+  <text x="92" y="850" class="text">view.copy_(var.grad)</text>
+
+  <text x="92" y="885" class="bold">if</text>
+  <text x="125" y="885" class="italic">all grads in</text>
+  <text x="265" y="885" class="italic">b</text><text x="278" y="892" class="small">i</text>
+  <text x="295" y="885" class="italic">are ready</text>
+  <text x="415" y="885" class="bold">then</text>
+  <line x1="115" y1="898" x2="115" y2="935" class="indent"/>
+  <line x1="115" y1="935" x2="135" y2="935" class="indent"/>
+  <text x="145" y="920" class="text">mark</text>
+  <text x="205" y="920" class="italic">b</text><text x="218" y="927" class="small">i</text>
+  <text x="235" y="920" class="text">as ready</text>
+
+  <text x="92" y="960" class="text">launch AllReduce on ready buckets in order</text>
+
+  <text x="92" y="995" class="bold">if</text>
+  <text x="125" y="995" class="italic">all buckets are ready</text>
+  <text x="370" y="995" class="bold">then</text>
+  <line x1="115" y1="1008" x2="115" y2="1045" class="indent"/>
+  <line x1="115" y1="1045" x2="135" y2="1045" class="indent"/>
+  <text x="145" y="1030" class="text">block waiting for all AllReduce ops</text>
+
+  <line x1="20" y1="1090" x2="940" y2="1090" class="line"/>
+</svg>
