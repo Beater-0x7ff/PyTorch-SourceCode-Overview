@@ -51,12 +51,11 @@
 
 - [x] [nn.Module：模块系统、Hook、state_dict、参数管理](https://github.com/ZhuangshengLi/PyTorch-SourceCode-Overview/wiki/nn.Module)
 
+- [x] [DistributedDataParallel (DDP)](https://github.com/ZhuangshengLi/PyTorch-SourceCode-Overview/wiki/数据并行)
+
 ---
 
 ## 计划更新
-
-- [ ] DistributedDataParallel (DDP)  
-      模型并行与分布式训练
 
 - [ ] torch.optim  
       优化器与参数更新机制
