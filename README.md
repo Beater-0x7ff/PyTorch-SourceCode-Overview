@@ -57,12 +57,7 @@
 
 - [x] [torch.amp自动混合精度（AMP)](https://github.com/Beater-0x7ff/PyTorch-SourceCode-Overview/wiki/AMP-%E8%87%AA%E5%8A%A8%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6)
 
----
-
-## 计划更新
-
-- [ ] cpp_extension  
-      C++ / CUDA 自定义算子实现与调用
+- [x] [cpp_extension C++ / CUDA 自定义算子实现与调用](https://github.com/Beater-0x7ff/PyTorch-SourceCode-Overview/wiki/cpp_extension-c---CUDA-%E7%AE%97%E5%AD%90%E5%AE%9E%E7%8E%B0%E5%92%8C%E8%B0%83%E7%94%A8)
 
 
 ## 参考版本
